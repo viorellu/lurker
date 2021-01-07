@@ -12,7 +12,7 @@ p=$(echo $line | cut -f 2 -d ":" | cut -f1 -d ".")
                         if [ $(grep -c $msum resigilate.log) == 0 ]
                                 then
                                         echo `date +"%d.%h.%y %H:%M:%S"` $msum $line >>resigilate.log
-                                        ${HOME}/pushover1.sh "Price alert for $line at `date +"%d.%h.%y %H:%M:%S"`"
+                                        curl -s -F "token=yourAppTokenHere" -F "user=yourUserTokenHere" -F "title=yourTitle" -F "message=Price alert for $line at `date +"%d.%h.%y %H:%M:%S"`" https://api.pushover.net/1/messages.json
                                         echo -n $'\a'
                                         sleep 1
                                         echo $'\a' `date +"%d.%h.%y %H:%M:%S"` "Good price found for" $line
