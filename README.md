@@ -8,3 +8,4 @@ Changes so far:
 - addded logging with timestamp for good price results. The result line is hashed with md5sum and the hash is added in the log as well.
 Comparing the hash for each newly found good price result against the log prevents getting more than 1 notification for a certain product.
 - added push notifications using Pushover
+- improved price field separation
