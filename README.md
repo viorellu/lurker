@@ -1,5 +1,5 @@
 # lurker
-Quick and dirty way for watching the resealed RTX video boards product page on the Romanian EMAG online store. It pools the page every 5 minutes.
+resigilate.sh - a quick and dirty way for watching the resealed RTX video boards product page on the Romanian EMAG online store. It pools the page every 5 minutes.
 
 Changes so far:
 - initial - a simple curl with text processing to obtain a line of text containing the product name and price
