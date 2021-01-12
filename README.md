@@ -10,3 +10,4 @@ Comparing the hash for each newly found good price result against the log preven
 - added push notifications using Pushover
 - improved price field separation
 - prices are now sorted low to high on terminal output
+- added email alerting as well
