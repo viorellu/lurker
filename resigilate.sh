@@ -11,13 +11,22 @@ p=$(echo $line | cut -f 2 -d ":" | cut -f1 -d ".")
                         msum=$(echo -n $line | md5sum | awk '{print $1}')
                         if [ $(grep -c $msum resigilate.log) == 0 ]
                                 then
-                                        echo `date +"%d.%h.%y %H:%M:%S"` $msum $line >>resigilate.log
-                                        curl -s -F "token=yourAppTokenHere" -F "user=yourUserTokenHere" -F "title=yourTitle" -F "message=Price alert for $line at `date +"%d.%h.%y %H:%M:%S"`" https://api.pushover.net/1/messages.json
+                                        echo From: \"lurker\" >${HOME}/resigilate.mail
+                                        echo To: \"myemailaddress\" >>${HOME}/resigilate.mail
+                                        echo Subject: This is a price alert from the EMAG lurker >>${HOME}/resigilate.mail
+                                        echo "" >>${HOME}/resigilate.mail
+                                        echo `date +"%d.%h.%y %H:%M:%S"` $msum $line | tee -a resigilate.log resigilate.mail >/dev/null
                                         echo -n $'\a'
                                         sleep 1
                                         echo $'\a' `date +"%d.%h.%y %H:%M:%S"` "Good price found for" $line
                                         sleep 1
                                         echo -n $'\a'
+#Push notification section using pushover API
+                                        curl -s -F "token=YourAppTokenHere" -F "user=YourUserTokenHere" -F "title=AppNameOrWhatever" -F "message=Price alert for $line at `date +"%d.%h.%y %H:%M:%S"`" https://api.pushover.net/1/messages.json
+#Send email using curl, password is 
+#in CLEARTEXT so use an application 
+#password instead, if supported
+                                        curl -s -n --ssl-reqd --mail-from "EmailSending@Addres.Com" --mail-rcpt "ReceivingEmail@Adress.Com" --url <smtps://smtp.server.com:port> -u 'EmailSending@Addres.Com:EmailPassword' --upload-file resigilate.mail 1>/dev/null 2>&1
                                 else
                                         echo `date +"%d.%h.%y %H:%M:%S"` "Good price still available for" $line
                         fi
