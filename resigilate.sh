@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+touch resigilate.log
+touch resigilate.mail
 while true
 do
 curl -s https://www.emag.ro/placi_video/resigilate/c?ref=lst_leftbar_6407_resealed | grep -i rtx | tr "," "\n" | grep -e "product_name&quot" -e "quot;price&quot" | awk 'NR%2{printf "%s ",$0;next;}1' | awk -F ";" '{print $4 "     " $NF}' | awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | sed "s/&quot//" | sed "s/u00ae//" | sed "s/u2122//" | tr \\ " " 2>/dev/null | while read -r line
@@ -11,10 +13,10 @@ p=$(echo $line | cut -f 2 -d ":" | cut -f1 -d ".")
                         msum=$(echo -n $line | md5sum | awk '{print $1}')
                         if [ $(grep -c $msum resigilate.log) == 0 ]
                                 then
-                                        echo From: \"lurker\" >${HOME}/resigilate.mail
-                                        echo To: \"myemailaddress\" >>${HOME}/resigilate.mail
-                                        echo Subject: This is a price alert from the EMAG lurker >>${HOME}/resigilate.mail
-                                        echo "" >>${HOME}/resigilate.mail
+                                        echo From: \"lurker\" >resigilate.mail
+                                        echo To: \"myemailaddress\" >>resigilate.mail
+                                        echo Subject: This is a price alert from the EMAG lurker >>esigilate.mail
+                                        echo "" >>resigilate.mail
                                         echo `date +"%d.%h.%y %H:%M:%S"` $msum $line | tee -a resigilate.log resigilate.mail >/dev/null
                                         echo -n $'\a'
                                         sleep 1
