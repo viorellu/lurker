@@ -11,4 +11,4 @@ Comparing the hash for each newly found good price result against the log preven
 - improved price field separation
 - prices are now sorted low to high on terminal output
 - added email alerting as well
-- script tocuhes the external files upon startup (making sure they exist)
+- script touches the external files upon startup (making sure they exist)
