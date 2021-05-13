@@ -24,7 +24,7 @@ p=$(echo $line | cut -f 2 -d ":" | cut -f1 -d ".")
                                         sleep 1
                                         echo -n $'\a'
 #Push notification section using pushover API
-                                        curl -s -F "token=YourAppTokenHere" -F "user=YourUserTokenHere" -F "title=AppNameOrWhatever" -F "message=Price alert for $line at `date +"%d.%h.%y %H:%M:%S"`" https://api.pushover.net/1/messages.json
+                                        curl -s -F "token=YourAppTokenHere" -F "user=YourUserTokenHere" -F "title=AppNameOrWhatever" -F "message=Price alert for $line at `date +"%d.%h.%y %H:%M:%S"`" https://api.pushover.net/1/messages.json 1>/dev/null 2>&1
 #Send email using curl, password is 
 #in CLEARTEXT so use an application 
 #password instead, if supported
