@@ -3,7 +3,7 @@ touch resigilate.log
 touch resigilate.mail
 while true
 do
-curl -s https://www.emag.ro/placi_video/resigilate/c?ref=lst_leftbar_6407_resealed | grep -i rtx | tr "," "\n" | grep -e "product_name&quot" -e "quot;price&quot" | awk 'NR%2{printf "%s ",$0;next;}1' | awk -F ";" '{print $4 "     " $NF}' | awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | sed "s/&quot//" | sed "s/u00ae//" | sed "s/u2122//" | tr \\ " " 2>/dev/null | while read -r line
+curl -s https://www.emag.ro/placi_video/resigilate/c?ref=lst_leftbar_6407_resealed | tr "," "\n" |  grep -e "product_name&quot" -e "quot;price&quot" | awk 'NR%2{printf "%s ",$0;next;}1' | awk -F ";" '{print $4 "     " $NF}' | awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | sed "s/&quot//" | sed "s/u00ae//" | sed "s/u2122//" | tr \\ " " 2>/dev/null | grep -i rtx| while read -r line
 do
 p=$(echo $line | cut -f 2 -d ":" | cut -f1 -d ".")
         if [ $p -gt 3000 ]
